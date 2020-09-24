@@ -55,3 +55,6 @@ variable "container_secrets" {
 variable "container_secrets_arns" {
   description = "ARN for secrets"
 }
+variable "aws_ecr_repository_url" {
+  description = "ECR Repository URL"
+}
