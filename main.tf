@@ -7,16 +7,16 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket  = "terraform-backend-store"
+    bucket  = "landed-terraform-state-ecs"
     encrypt = true
     key     = "terraform.tfstate"
-    region  = "eu-central-1"
+    region  = "us-west-2"
     # dynamodb_table = "terraform-state-lock-dynamo" - uncomment this line once the terraform-state-lock-dynamo has been terraformed
   }
 }
 
-resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
-  name           = "terraform-state-lock-dynamo"
+resource "aws_dynamodb_table" "terraform-locks-ecs" {
+  name           = "terraform-locks-ecs"
   hash_key       = "LockID"
   read_capacity  = 20
   write_capacity = 20
@@ -66,14 +66,14 @@ module "ecr" {
 
 
 module "secrets" {
-  source              = "./modules/secrets"
+  source              = "./secrets"
   name                = var.name
   environment         = var.environment
   application-secrets = var.application-secrets
 }
 
 module "ecs" {
-  source                      = "./modules/ecs"
+  source                      = "./ecs"
   name                        = var.name
   environment                 = var.environment
   region                      = var.aws-region
