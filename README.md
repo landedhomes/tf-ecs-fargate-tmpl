@@ -30,7 +30,7 @@ This setup creates the following resources:
 - Install terraform on MacOS with `brew install terraform`
 - create your own `secrets.tfvars` based on `secrets.example.tfvars`, insert the values for your AWS access key and secrets. If you don't create your `secrets.tfvars`, don't worry. Terraform will interactively prompt you for missing variables later on. You can also create your `environment.tfvars` file to manage non-secret values for different environemnts or projects with the same infrastructure
 - execute `terraform init`, it will initialise your local terraform and connect it to the state store, and it will download all the necessary providers
-- execute `terraform plan -var-file="secret.tfvars" -var-file="environment.tfvars" -out="out.plan"` - this will calculate the changes terraform has to apply and creates a plan. If there are changes, you will see them. Check if any of the changes are expected, especially deletion of infrastructure.
+- execute `terraform plan -var-file="secrets.tfvars" -var-file="[environment name].tfvars" -out="out.plan"` - this will calculate the changes terraform has to apply and creates a plan. If there are changes, you will see them. Check if any of the changes are expected, especially deletion of infrastructure.
 - if everything looks good, you can execute the changes with `terraform apply out.plan`
 
 ### Setting up Terraform Backend
