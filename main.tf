@@ -84,15 +84,20 @@ module "ecs" {
   container_cpu               = var.container_cpu
   container_memory            = var.container_memory
   service_desired_count       = var.service_desired_count
-  container_environment = [
+  container_environment = concat([
     { name = "LOG_LEVEL",
     value = "DEBUG" },
     { name = "PORT",
     value = var.container_port }
-  ]
+  ], module.env.combined_environment)
   container_secrets      = module.secrets.secrets_map
   aws_ecr_repository_url = module.ecr.aws_ecr_repository_url
   container_secrets_arns = module.secrets.application_secrets_arn
   container_image        = var.container_image
+}
+
+module "env" {
+  source = "./env"
+  container_environment = var.container_environment
 }
 
