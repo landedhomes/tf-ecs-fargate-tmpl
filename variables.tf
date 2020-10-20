@@ -59,7 +59,7 @@ variable "service_desired_count" {
 
 variable "container_port" {
   description = "The port where the Docker is exposed"
-  default     = 8000
+  default     = 5000
 }
 
 variable "container_cpu" {
@@ -83,4 +83,9 @@ variable "health_check_path" {
 
 variable "tsl_certificate_arn" {
   description = "The ARN of the certificate that the ALB uses for https"
+}
+
+variable "container_environment" {
+  description = "A map of environment variables that are passed into the application. Formatted like ENV_VAR = VALUE"
+  type        = map
 }
